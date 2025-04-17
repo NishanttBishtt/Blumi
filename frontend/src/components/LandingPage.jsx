@@ -113,8 +113,11 @@ function LandingPage() {
           </div>
         </div>
       </div>
+      <div className='mx-8 mt-10 text-5xl font-semibold'>
+        <h2>Featured Products</h2>
+      </div>
       {/* ProductCards mapping */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-8 py-10 ">
+      <div className="grid text-zinc-900 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-8 py-8 ">
         {mockProducts.map((product) => (<ProductCard key={product.id} product={product} />))}
       </div>
     </div>
