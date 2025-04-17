@@ -1,30 +1,4 @@
-// import React from 'react';
 
-// const ProductCard = ({ product }) => {
-//   const { title, description, price, imageUrl, sellerPhoneNumber } = product;
-
-//   const handleBuyNow = () => {
-//     const whatsappLink = `https://wa.me/${sellerPhoneNumber}?text=Hi, I'm interested in your product "${title}"`;
-//     window.open(whatsappLink, '_blank');
-//   };
-
-//   return (
-//     <div className="border p-4 rounded-lg shadow-md">
-//       <img src={imageUrl} alt={title} className="w-full h-40 object-cover rounded-md" />
-//       <h3 className="text-lg font-bold mt-2">{title}</h3>
-//       <p className="text-sm text-gray-500">{description}</p>
-//       <p className="text-xl font-semibold mt-2">{price}</p>
-//       <button
-//         onClick={handleBuyNow}
-//         className="bg-blue-500 text-white py-2 px-4 mt-3 rounded-lg"
-//       >
-//         Buy Now
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default ProductCard;
 import React from 'react'
 
 function ProductCard({product}) {
