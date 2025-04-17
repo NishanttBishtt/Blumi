@@ -5,11 +5,15 @@ import { CiSearch } from "react-icons/ci";
 import { MdOutlineMenu } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { Link } from 'react-router-dom';
+import { MdOutlineArrowDropDown } from "react-icons/md";
 
 function LandingPage() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [showCategory, setShowCategory] = useState(false);
+  function toggleCategory() {
+    setShowCategory(!showCategory)
+  }
   return (
     <div className="w-full ">
       <nav className='px-10 py-3 flex justify-between items-center fixed top-0 left-0 w-full bg-[#F5F5F5] z-50 shadow-md'>
@@ -19,22 +23,40 @@ function LandingPage() {
           </h1>
         </div>
         <div className="nav-right sm:flex items-center space-x-6 hidden ">
-          <a className='lg:text-md md:text-sm font-medium transition-all duration-300 ease-in-out hover:bg-zinc-300/40 px-3 py-2 hover:rounded-md' href="">Home</a>
-          <a className='lg:text-md md:text-sm font-medium transition-all duration-300 ease-in-out hover:bg-zinc-300/40 px-3 py-2 hover:rounded-md' href="">Categories</a>
-          <a href='' className='lg:text-xl transition-all duration-300 ease-in-out md:text-lg text-green-600 pl-3 hover:text-green-800 font-semibold'>Become a seller</a >
+          <Link to="/" className='lg:text-md md:text-sm font-medium transition-all duration-300 ease-in-out hover:bg-zinc-300/40 px-3 py-2 hover:rounded-md' >Home</Link>
+          <Link to="/About" className='lg:text-md md:text-sm font-medium transition-all duration-300 ease-in-out hover:bg-zinc-300/40 px-3 py-2 hover:rounded-md' >About</Link>
+          <div className='relative'>
+          <h3 onClick={toggleCategory} className='lg:text-md md:text-sm cursor-pointer font-medium transition-all duration-300 ease-in-out flex items-center hover:bg-zinc-300/40 px-3 py-2 hover:rounded-md' >Categories<MdOutlineArrowDropDown /></h3>
+          {showCategory && (
+             <div className="absolute top-full mt-2 left-0 bg-[#F5F5F5] rounded shadow-md p-2 space-y-2 z-50">
+              {["Men","Women","Kids"].map((item,index)=>(
+                <motion.p
+                key={item}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="cursor-pointer hover:bg-zinc-200 px-4 py-1 rounded text-center"
+              >
+                {item}
+              </motion.p>
+              )) }
+           </div>
+          )}
+          </div>
+          <Link to="/Seller" className='lg:text-xl transition-all duration-300 ease-in-out md:text-lg text-green-600 pl-3 hover:text-green-800 font-semibold'>Become a seller</Link >
         </div>
         {/* Mobile menu dropdown */}
         <div className="sm:hidden cursor-pointer">{isOpen ? (
-            <MdClose
-              className="text-2xl"
-              onClick={() => setIsOpen(false)}
-            />
-          ) : (
-            <MdOutlineMenu
-              className="text-2xl"
-              onClick={() => setIsOpen(true)}
-            />
-          )}
+          <MdClose
+            className="text-2xl"
+            onClick={() => setIsOpen(false)}
+          />
+        ) : (
+          <MdOutlineMenu
+            className="text-2xl"
+            onClick={() => setIsOpen(true)}
+          />
+        )}
         </div>
         <AnimatePresence>
           {isOpen && (
@@ -45,9 +67,29 @@ function LandingPage() {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="absolute top-full left-0 w-full bg-zinc-300 shadow-md sm:hidden flex flex-col items-center px-10 py-4 z-[1] space-y-8"
             >
-              <a className="text-md font-medium " href="">Home</a>
-              <a className="text-md font-medium" href="">Categories</a>
-              <a className="text-green-600 text-lg font-semibold" href="">Become a seller</a>
+              <Link to="/" className="text-md font-medium " >Home</Link>
+              <Link to="/About" className='text-md font-medium' >About</Link>
+              <div className='relative w-full flex flex-col items-center'>
+
+              <h3 onClick={toggleCategory} className="text-md flex items-center font-medium" >Categories<MdOutlineArrowDropDown /></h3>
+              {showCategory && (
+             <div className=" mt-2 w-full bg-zinc-300 rounded shadow-lg  flex flex-col items-center space-y-2 z-50">
+              {["Men", "Women", "Kids"].map((item, index) => (
+      <motion.p
+        key={item}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: index * 0.1 }}
+        className="cursor-pointer hover:bg-zinc-200 px-4 py-1 rounded text-center"
+      >
+        {item}
+      </motion.p>
+    ))}
+           </div>
+          )}
+              </div>
+              <Link to="/Seller" className="text-green-600 text-lg font-semibold" onClick={() => setIsOpen(false)}>Become a seller</Link>
+
             </motion.div>
           )}
         </AnimatePresence>
@@ -71,11 +113,10 @@ function LandingPage() {
           </div>
         </div>
       </div>
-
       {/* ProductCards mapping */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-8 py-10 ">
-        {mockProducts.map((product) => (<ProductCard key={product.id} product={product}  />))}
-     </div>
+        {mockProducts.map((product) => (<ProductCard key={product.id} product={product} />))}
+      </div>
     </div>
   );
 };
